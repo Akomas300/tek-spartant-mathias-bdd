@@ -14,6 +14,11 @@ public class BaseSetup {
         driver.get("https://retail.tekschool-students.com/");
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
+
+    public static WebDriver getDriver() {
+        return driver;
+    }
+
     public void quitBrowser(){
         if(driver!=null){
             driver.quit();
