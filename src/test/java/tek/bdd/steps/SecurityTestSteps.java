@@ -20,7 +20,7 @@ public class SecurityTestSteps extends SeleniumUtility{
     }
     @Then("validate user in sign in page")
     public void validateUserInSingInPage(){
-        Assert.assertEquals("Sign in",gettingText(By.className("login__subtitle")));
+        Assert.assertEquals("Sign in",gettingText(PAGE_SUBTITLE));
     }
     // @When("user enter username and password and click on login")
     // public void enterUserNamePasswordAndClickOnLogin(){
