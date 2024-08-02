@@ -10,9 +10,9 @@ Feature: Navigate to the sign in page and sign in whit a valid user name and pas
   Scenario Outline:
     When user click on sign in link
     Then validate user in sign in page
-    When user enter <WrongUsername> and <WrongPassword> and click on login
+    When user enter "<WrongUsername>" and "<WrongPassword>" and click on login
     Then user should see error "wrong username or password"
     Examples:
-      | WrongUsername              |  | WrongPassword   |
-      | "WrongUsername@gmail.com"  |  | "MAthais2121!" |
-      | "WrongUsername1@gmail.com" |  | "MATHIASas2212@" |
+      | WrongUsername              | WrongPassword    |
+      | WrongUsername@gmail.com  | MAthais2121!  |
+      | WrongUsername1@gmail.com | MATHIASas2212@ |
