@@ -1,8 +1,14 @@
 package tek.bdd.base;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,6 +18,8 @@ import java.util.Properties;
 
 
 public abstract class BaseSetup {
+    private static final Logger LOGGER= LogManager.getLogger(BaseSetup.class);
+   // private configFilePath
     private static WebDriver driver;
     private final Properties properties;
 
@@ -35,9 +43,27 @@ public abstract class BaseSetup {
 
 
     public void setupBrowser(){
-        ChromeOptions options =new ChromeOptions();
-        options.addArguments("--headless");
-        driver=new ChromeDriver(options);
+        //To Open Chrome browser in headless mode
+        String browserType = properties.getProperty("ui.browser");
+        boolean isHeadless = Boolean.parseBoolean(properties.getProperty("ui.browser.headless"));
+
+        if (browserType.equalsIgnoreCase("chrome")) {
+            ChromeOptions options = new ChromeOptions();
+            if (isHeadless)
+                options.addArguments("--headless");
+            driver = new ChromeDriver(options);
+        } else if (browserType.equalsIgnoreCase("edge")) {
+            EdgeOptions options = new EdgeOptions();
+            if (isHeadless) options.addArguments("--headless");
+            driver = new EdgeDriver(options);
+        } else if (browserType.equalsIgnoreCase("firefox")) {
+            FirefoxOptions options = new FirefoxOptions();
+            if (isHeadless)
+                options.addArguments("--headless");
+            driver = new FirefoxDriver(options);
+        } else {
+            throw new RuntimeException("Wrong browser type choose between chrome, firefox or edge");
+        }
         String url=properties.getProperty("ui.url");
         driver.manage().window().maximize();
         driver.get(url);

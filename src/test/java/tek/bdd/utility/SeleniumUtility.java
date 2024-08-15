@@ -1,5 +1,7 @@
 package tek.bdd.utility;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -9,15 +11,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import tek.bdd.base.BaseSetup;
 
 import java.time.Duration;
+import java.util.List;
 
 import static tek.bdd.base.BaseSetup.getDriver;
 
 public class SeleniumUtility  extends BaseSetup {
+    private static final Logger LOGGER = LogManager.getLogger(SeleniumUtility.class);
     private WebDriverWait getWait() {
         return new WebDriverWait(getDriver(), Duration.ofSeconds(20));
     }
 
-    private WebElement waitForVisibility(By locator) {
+    public WebElement waitForVisibility(By locator) {
         return getWait().until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
@@ -30,7 +34,9 @@ public class SeleniumUtility  extends BaseSetup {
 
     public void sendText(By locator, String text) {
         //getWait().until(ExpectedConditions.visibilityOfElementLocated(locator))
-        waitForVisibility(locator).sendKeys(text);
+        waitForVisibility(locator).clear();
+        if (text!=null){
+        waitForVisibility(locator).sendKeys(text);}
 
     }
 
@@ -48,5 +54,8 @@ public class SeleniumUtility  extends BaseSetup {
     public byte[] takeScreenShot() {
         TakesScreenshot screenShot = (TakesScreenshot) getDriver();
         return screenShot.getScreenshotAs(OutputType.BYTES);
+    }public List<WebElement> getElements(By locator) {
+        return getWait().until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
     }
+
 }

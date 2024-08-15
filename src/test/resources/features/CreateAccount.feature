@@ -16,7 +16,14 @@ Feature: Navigate to create account page and create new account
       When user inter "Mathias","akowa300@gmail.com","Mathias123!" and "Mathias123!"
       When user click on "Sign Up" button
       Then user should see error "this email is already exist, please use another email address"
-
+@smoke
+  Scenario: Navigate to Create Account page and Create new Account
+  With existing email and validate error message
+    Then validate user in sign up page
+    When user inter sign up. infos
+  |Mathias|akowa300@gmail.com|Mathias123!|Mathias123!|
+    When user click on "Sign Up" button
+    Then user should see error "this email is already exist, please use another email address"
 
 
 

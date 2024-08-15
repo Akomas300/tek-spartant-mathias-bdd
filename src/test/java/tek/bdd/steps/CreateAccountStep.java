@@ -1,5 +1,6 @@
 package tek.bdd.steps;
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -8,6 +9,8 @@ import org.openqa.selenium.By;
 import tek.bdd.pages.SignInPages;
 import tek.bdd.pages.SignUpPage;
 import tek.bdd.utility.SeleniumUtility;
+
+import java.util.List;
 
 import static tek.bdd.pages.HomePage.SIGN_IN_LINK;
 import static tek.bdd.pages.SignInPages.NEW_ACCOUNT_BUTTON;
@@ -46,4 +49,20 @@ public class CreateAccountStep extends SeleniumUtility {
         sendText(SignUpPage.SIGN_UP_PASSWORD,"Mathias123!");
         sendText(SignUpPage.SIGN_UP_CONFIRMPASSWORD,"Mathias123!");
     }
+
+    @When("user inter sign up infos")
+    public void userInterSignUpInfos(DataTable data) {
+        List<List<String>> list=data.asLists();
+       String name= list.get(0).get(0);
+       String email= list.get(0).get(1);
+       String password= list.get(0).get(2);
+       String confirmPassword=list.get(0).get(3);
+        sendText(SIGN_UP_NAME,name);
+        sendText(SignUpPage.SIGN_UP_EMAIL,email);
+        sendText(SignUpPage.SIGN_UP_PASSWORD,password);
+        sendText(SignUpPage.SIGN_UP_CONFIRMPASSWORD,confirmPassword);
+
+    }
+
+
 }

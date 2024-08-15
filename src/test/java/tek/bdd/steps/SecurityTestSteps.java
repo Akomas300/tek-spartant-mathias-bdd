@@ -1,10 +1,14 @@
 package tek.bdd.steps;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import tek.bdd.pages.HomePage;
 import tek.bdd.utility.SeleniumUtility;
+
+import java.util.Map;
 
 import static tek.bdd.pages.HomePage.SIGN_IN_LINK;
 import static tek.bdd.pages.SignInPages.*;
@@ -41,6 +45,17 @@ public class SecurityTestSteps extends SeleniumUtility{
 
     @Then("user should see error {string}")
     public void userShouldSeeError(String arg0) {
+
         Assert.assertEquals(arg0,gettingText(By.className("error")));
+    }
+
+    @When("user enter sign in information")
+    public void userEnterSignInInformation(DataTable dataTable) {
+       Map<String,String> stringMap =dataTable.asMap();
+       String email = stringMap.get("email");
+       String password = stringMap.get("password");
+       sendText(SIGN_IN_EMAIL,email);
+       sendText(SIGN_IN_PASSWORD,password);
+
     }
 }

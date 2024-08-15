@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
            features = "classpath:features",
             glue = "tek.bdd.steps",
             dryRun = false,
-            tags="@scenario1 or @scenario2"
+            tags="@smoke1"
     )
     public class TestRunner{
 
