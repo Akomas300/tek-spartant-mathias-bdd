@@ -6,16 +6,23 @@ Feature:  Navigate to Retail and login with your credential,
     Then validate user in sign in page
     When user enter sign in information
       | email    | akowa300@gmail.com |
-      | password | Mathias1234!        |
+      | password | Mathias123!        |
     When user click on "Login" button
     When user click on "Account" link
     When user enter change the password
+      | previousPassword | Mathias123!  |
+      | newPassword      | Mathias1234! |
+      | confirmPassword  | Mathias1234! |
+    When user click on "Change Password" button
+    Then validate user information update successfully
+    Then wait for element
+
+   When user enter change the password
       | previousPassword | Mathias1234!  |
       | newPassword      | Mathias123! |
       | confirmPassword  | Mathias123! |
     When user click on "Change Password" button
     Then validate user information update successfully
-
 
     Scenario: Navigate to Retail app and in landing page search for a product.
       When user enter "TV" in the search box

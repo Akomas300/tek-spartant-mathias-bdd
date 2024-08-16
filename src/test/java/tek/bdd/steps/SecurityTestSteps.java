@@ -54,7 +54,9 @@ public class SecurityTestSteps extends SeleniumUtility{
        Map<String,String> stringMap =dataTable.asMap();
        String email = stringMap.get("email");
        String password = stringMap.get("password");
+       waitForVisibility(SIGN_IN_EMAIL).clear();
        sendText(SIGN_IN_EMAIL,email);
+       waitForVisibility(SIGN_IN_PASSWORD).clear();
        sendText(SIGN_IN_PASSWORD,password);
 
     }

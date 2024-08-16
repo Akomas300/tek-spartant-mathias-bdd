@@ -34,8 +34,11 @@ public class UpdateNameAndPhoneNumberStep extends SeleniumUtility {
         String oldPassword=data.get("previousPassword");
         String newPassword=data.get("newPassword");
         String confirmPassword=data.get("confirmPassword");
+        waitForVisibility(By.id("previousPasswordInput")).clear();
         sendText(By.id("previousPasswordInput"),oldPassword);
+        waitForVisibility(By.id("newPasswordInput")).clear();
         sendText(By.id("newPasswordInput"),newPassword);
+        waitForVisibility(By.id("confirmPasswordInput")).clear();
         sendText(By.id("confirmPasswordInput"),confirmPassword);
     }
 
@@ -87,5 +90,11 @@ public class UpdateNameAndPhoneNumberStep extends SeleniumUtility {
     public void userValidateTheTheItemHasBeenDeleted() {
        String text = gettingText(By.className("cart__empty-title"));
        Assert.assertEquals(text,"Your Shopping Cart is Empty");
+    }
+
+    @Then("wait for element")
+    public void waitForElement() throws InterruptedException {
+            Thread.sleep(2000);
+
     }
 }
